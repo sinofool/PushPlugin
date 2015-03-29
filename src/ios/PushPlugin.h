@@ -40,6 +40,7 @@
 @property (nonatomic, copy) NSString *callbackId;
 @property (nonatomic, copy) NSString *notificationCallbackId;
 @property (nonatomic, copy) NSString *callback;
+@property (nonatomic, copy) UIUserNotificationSettings *registeredSettings;
 
 @property (nonatomic, strong) NSDictionary *notificationMessage;
 @property BOOL                          isInline;
@@ -48,6 +49,7 @@
 
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
+- (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings* )settings;
 
 - (void)setNotificationMessage:(NSDictionary *)notification;
 - (void)notificationReceived;

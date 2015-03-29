@@ -121,6 +121,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     if ([[UIApplication sharedApplication]respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UserNotificationTypes categories:nil];
+        self.registeredSettings = settings;
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     } else {
@@ -194,6 +195,13 @@
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
 	[self failWithMessage:@"" withError:error];
+}
+
+- (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings* )settings
+{
+    if ([settings types] != [self.registeredSettings types]) {
+        [self failWithMessage:@"PartialPermit" withError:nil];
+    }
 }
 
 - (void)notificationReceived {
